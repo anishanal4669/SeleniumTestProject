@@ -1,18 +1,17 @@
 package scriptUtil;
 
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 
 
 import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -43,7 +42,6 @@ public class BasePage implements MainSchema {
     public static void clickElement(String labelName) {
         //By WebElementXpath =By.xpath("//a[contains(text(),'labelName')]");
         driver.findElement(By.xpath("//a[contains(text(),'" + labelName + "')]")).click();
-
     }
 
     public static void enterVal(String Val, String labelName) {
@@ -65,9 +63,7 @@ public class BasePage implements MainSchema {
             {
                 driver.switchTo().window(Handles);
             }
-
         }
-
     }
     public static void handleFrame(String name){
         driver.switchTo().frame(name);
@@ -90,6 +86,28 @@ public class BasePage implements MainSchema {
         WebDriverWait wait = new WebDriverWait(driver,time);
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
+
+    public void hoverElement(String labelName, String labelName1, String labelName2){
+        Actions action = new Actions(driver);
+        String WebElementXpath =String.format("//a[text()='" + labelName + "']");
+        String WebElementXpath1 =String.format("//a[text()='" + labelName1 + "']");
+        String WebElementXpath2 =String.format("//a[text()='" + labelName2 + "']");
+        WebElement we = find(WebElementXpath);
+        action.moveToElement(we).perform();
+        action.moveToElement(find(WebElementXpath1)).perform();
+        action.moveToElement(find(WebElementXpath2)).click().build().perform();
+
+
+    }
+    public void pageLoad(int time){
+        driver.manage().timeouts().pageLoadTimeout(time, TimeUnit.SECONDS);
+    }
+
+    public void scrollScreen(){
+        JavascriptExecutor JSE = (JavascriptExecutor)driver;
+        JSE.executeScript("window.scrollTo(0,300)", "");
+    }
+
 
     }
 

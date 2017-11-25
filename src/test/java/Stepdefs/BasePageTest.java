@@ -18,7 +18,7 @@ public class BasePageTest extends BasePage {
     }
 
     @cucumber.api.java.After
-    public void tearDown(Scenario scenario) {
+    public void tearDown(Scenario scenario) throws InterruptedException {
         try{
         if (scenario.isFailed()) {
             System.out.println("Taking Screenshot");
@@ -30,6 +30,7 @@ public class BasePageTest extends BasePage {
             e.printStackTrace();
         }
         finally {
+            Thread.sleep(10000);
             System.out.println("Closing Browser");
             driver.close();
         }

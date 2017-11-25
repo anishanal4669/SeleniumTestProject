@@ -2,10 +2,13 @@ package PageObjects;
 
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import scriptUtil.*;
 
 import java.util.List;
@@ -50,24 +53,20 @@ public class Home extends BasePage{
     }
     public void validateLinksPresent(String labelName){
         String WebElementXpath =String.format("//a[text()='" + labelName + "']");
-
-        String[] expected = {};
-        List<WebElement> allOptions = (List<WebElement>) find(WebElementXpath);
-
-// make sure you found the right number of elements
-        if (expected.length != allOptions.size()) {
-            System.out.println("fail, wrong number of elements found");
+        if(find(WebElementXpath).isDisplayed()){
+            Assert.assertTrue(find(WebElementXpath).getText().equalsIgnoreCase(labelName));
         }
-// make sure that the value of every <option> element equals the expected value
-        for (int i = 0; i < expected.length; i++) {
-            String optionValue = allOptions.get(i).getAttribute("value");
-            if (optionValue.equals(expected[i])) {
-                System.out.println("passed on: " + optionValue);
-            } else {
-                System.out.println("failed on: " + optionValue);
-            }
+        else{
+            System.out.println("Element didn't matched");
         }
-
+    }
+    public void clickLink(String labelName){
+        String WebElementXpath =String.format("//span[text()='" + labelName + "']");
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+        if(find(WebElementXpath).isDisplayed()){
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath(WebElementXpath)));
+            find(WebElementXpath).click();
+        }
     }
 
 
