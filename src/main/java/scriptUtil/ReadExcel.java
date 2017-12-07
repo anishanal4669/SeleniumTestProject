@@ -11,10 +11,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ReadExcel {
 
-    public void readData(String FilePath, String SheetName) throws IOException {
+    public void readData() throws IOException {
     FileInputStream FIS = null;
     try{
-        FIS = new FileInputStream(new File(FilePath));
+        FIS = new FileInputStream(new File("D:\\Selenium\\TestProject\\src\\main\\resources\\TestData2.xlsx"));
         System.out.println("File Found");
     }
     catch(Exception e){
@@ -22,10 +22,12 @@ public class ReadExcel {
         e.printStackTrace();
     }
     XSSFWorkbook wb = new XSSFWorkbook(FIS);
-        XSSFSheet sh = wb.getSheet(SheetName);
+        XSSFSheet sh = wb.getSheetAt(0);
 
         int rownum = sh.getLastRowNum();
+        System.out.println(rownum);
         int colNum = sh.getRow(0).getLastCellNum();
+        System.out.println(colNum);
         String[][] Data = new String [rownum][colNum];
         for(int i=0; i<rownum; i++){
             XSSFRow row = sh.getRow(i);

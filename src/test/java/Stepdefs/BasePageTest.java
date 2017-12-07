@@ -10,11 +10,12 @@ import org.openqa.selenium.TakesScreenshot;
 import scriptUtil.BasePage;
 
 import static org.junit.Assert.*;
+import static scriptUtil.ConnectingDatabase.*;
 
 public class BasePageTest extends BasePage {
     @Before
     public void setUp() throws Exception {
-    System.out.println("Print First");
+        connectDB();
     }
 
     @cucumber.api.java.After
@@ -32,7 +33,7 @@ public class BasePageTest extends BasePage {
         finally {
             Thread.sleep(10000);
             System.out.println("Closing Browser");
-            driver.close();
+            driver.quit();
         }
 
     }

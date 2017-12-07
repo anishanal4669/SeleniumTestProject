@@ -14,3 +14,10 @@ Feature: Test Functionality
     Then users hovers on "Products" and then on "Loans" and then clicks on "Car Loans"
     Then user waits maximum "10" seconds for pageload
     Then user click on the link "Car Loan EMI Calculator"
+    Then user switch the focus to the window just opened
+    Then user enters "1000000" in the field "Please Input Loan Amount "
+    Then user enters "13" in the field "Please Input Interest Rate "
+    Then user enters "84" in the field "Please Input Tenure "
+    Then user clicks on the button "Calculate Amortization"
+    Then user scrolls the screen
+    Then user compares the data present on the portal

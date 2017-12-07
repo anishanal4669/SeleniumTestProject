@@ -19,6 +19,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 public class BasePage implements MainSchema {
     public static WebDriver driver;
     public static WebElement element;
+    JavascriptExecutor JSE = (JavascriptExecutor)driver;
     public static void launchBrowser() {
         if (Browser.equalsIgnoreCase("Chrome")) {
             System.setProperty("webdriver.chrome.driver", "D://Selenium//chromedriver.exe");
@@ -65,8 +66,8 @@ public class BasePage implements MainSchema {
             }
         }
     }
-    public static void handleFrame(String name){
-        driver.switchTo().frame(name);
+    public static void handleFrame(String id){
+        driver.switchTo().frame(id);
     }
 
     public static void defaultContent(){
@@ -104,9 +105,18 @@ public class BasePage implements MainSchema {
     }
 
     public void scrollScreen(){
-        JavascriptExecutor JSE = (JavascriptExecutor)driver;
+
         JSE.executeScript("window.scrollTo(0,300)", "");
     }
+    public void scrollintoView(String labelName){
+        String WebElementXpath =String.format("//a[text()='" + labelName + "']");
+        WebElement element = find(WebElementXpath);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+
+    }
+
+
+
 
 
     }
